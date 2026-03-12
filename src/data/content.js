@@ -12,6 +12,7 @@ export const companyInfo = {
         "+213 661 30 74 07",
         "+213 560 06 02 63"
     ],
+    email1: "sarlpro.commerce@gmail.com",
     email: "commerce@sarlpro.com",
     social: {
         facebook: "https://www.facebook.com/profile.php?id=100075842000986&mibextid=ZbWKwL",

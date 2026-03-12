@@ -167,6 +167,15 @@ const Footer = () => {
                   {companyInfo.email}
                 </a>
               </li>
+                 <li className="flex items-center space-x-3">
+                <Mail className="w-5 h-5 text-accent flex-shrink-0" />
+                <a 
+                  href={`mailto:${companyInfo.email1}`}
+                  className="text-white/70 hover:text-accent transition-colors duration-300"
+                >
+                  {companyInfo.email1}
+                </a>
+              </li>
             </ul>
           </motion.div>
         </div>

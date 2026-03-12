@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Phone, Mail, MapPin, Send, Clock, Facebook, Instagram, MessageCircle } from 'lucide-react'
 import { companyInfo } from '../data/content'
-
+import { FaTiktok } from "react-icons/fa";
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -77,14 +77,14 @@ const Contact = () => {
     {
       icon: Clock,
       title: "Heures d'ouverture",
-      content: "Lun - Sam: 8h00 - 18h00",
+      content: "Lun - Sam: 8h00 - 17h00",
       link: null
     }
   ]
 
   const socialLinks = [
     { icon: Facebook, name: "Facebook", link: companyInfo.social.facebook },
-    { icon: MessageCircle, name: "TikTok", link: companyInfo.social.tiktok },
+   { icon: FaTiktok, name: "TikTok", link: companyInfo.social.tiktok },
     { icon: Instagram, name: "Instagram", link: companyInfo.social.instagram }
   ]
 
