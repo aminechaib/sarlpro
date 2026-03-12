@@ -135,11 +135,15 @@ export const productCategories = [
 ]
 
 export const brands = [
+    { name: "FPA", image: "/old-site/notre marque/FPA LOGO 24-1.svg" },
+    { name: "REFLEX", image: "/old-site/notre marque/LOGO REFLEX.svg" },
+    { name: "EYQUEM", image: "/old-site/notre marque/eyquem.png" },
+    { name: "WOLIE", image: "/old-site/notre marque/wolie.svg" },
+    { name: "DAYCO", image: "/old-site/notre marque/Dayco.webp" },
     { name: "CAUTEX", image: "/old-site/notre marque/CAUTEX.svg" },
     { name: "FISPA", image: "/old-site/notre marque/FISPA.webp" },
     { name: "GRAF", image: "/old-site/notre marque/graf.svg" },
     { name: "MEAT & DORIA", image: "/old-site/notre marque/MEAT&DORIA.webp" },
-    { name: "METELLI", image: "/old-site/notre marque/metelli.webp" },
     { name: "MEYLE", image: "/old-site/notre marque/meyle.svg" },
     { name: "HOFFER", image: "/old-site/notre marque/Hoffer-Products - Since 1999.webp" },
     { name: "MOTRIO", image: "/old-site/notre marque/motrio.svg" }
