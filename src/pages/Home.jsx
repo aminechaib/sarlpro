@@ -86,10 +86,10 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Prêt à Transformer Votre Véhicule ?
+              Votre Fournisseur de Pièces Automobiles Authentiques
             </h2>
             <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
-              Contactez-nous dès aujourd'hui pour découvrir notre large gamme de pièces automobiles de qualité originale
+              Contactez-nous dès aujourd’hui pour découvrir notre large gamme de pièces automobiles d’origine et devenir partenaire
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <motion.a

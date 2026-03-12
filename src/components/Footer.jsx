@@ -179,9 +179,9 @@ const Footer = () => {
             <p className="text-white/60 text-sm">
               © {new Date().getFullYear()} SARL PRO - Tous droits réservés
             </p>
-            <p className="text-white/40 text-xs mt-2 md:mt-0">
-              Conçu avec passion en Algérie
-            </p>
+<p className="text-white/40 text-xs mt-2 md:mt-0">
+  Made with passion in Algeria • Built by AC
+</p>
           </div>
         </div>
       </div>
