@@ -10,7 +10,7 @@ export const companyInfo = {
     phones: [
         "+213 661 90 04 00",
         "+213 661 30 74 07",
-        "+213 560 06 02 63"
+        "+213 661 36 63 66"
     ],
     email1: "sarlpro.commerce@gmail.com",
     email: "commerce@sarlpro.com",
