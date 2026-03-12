@@ -1,92 +1,21 @@
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Phone, Mail, MapPin, Send, Clock, Facebook, Instagram, MessageCircle } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Facebook, Instagram, MessageCircle, Navigation2 } from 'lucide-react'
 import { companyInfo } from '../data/content'
-import { FaTiktok } from "react-icons/fa";
+import { FaTiktok, FaWhatsapp } from "react-icons/fa";
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(null)
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    try {
-      const response = await fetch('https://formspree.io/f/xwpkrpak', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message
-        })
-      })
-
-      if (response.ok) {
-        setSubmitStatus('success')
-        setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
-        setTimeout(() => setSubmitStatus(null), 5000)
-      } else {
-        setSubmitStatus('error')
-      }
-    } catch (error) {
-      setSubmitStatus('error')
-    }
-
-    setIsSubmitting(false)
-  }
-
-  const contactInfo = [
-    {
-      icon: MapPin,
-      title: "Adresse",
-      content: companyInfo.address,
-      link: "https://maps.app.goo.gl/wvuy8zf26HNL3xhM6"
-    },
-    {
-      icon: Phone,
-      title: "Téléphone",
-      content: companyInfo.phones[0],
-      link: `tel:${companyInfo.phones[0].replace(/\s/g, '')}`
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      content: companyInfo.email,
-      link: `mailto:${companyInfo.email}`
-    },
-    {
-      icon: Clock,
-      title: "Heures d'ouverture",
-      content: "Lun - Sam: 8h00 - 17h00",
-      link: null
-    }
-  ]
-
+  const phones = companyInfo.phones;
   const socialLinks = [
     { icon: Facebook, name: "Facebook", link: companyInfo.social.facebook },
-   { icon: FaTiktok, name: "TikTok", link: companyInfo.social.tiktok },
-    { icon: Instagram, name: "Instagram", link: companyInfo.social.instagram }
-  ]
+    { icon: FaTiktok, name: "TikTok", link: companyInfo.social.tiktok },
+    { icon: Instagram, name: "Instagram", link: companyInfo.social.instagram },
+  ];
+
+  const copyToClipboard = (text, label) => {
+    navigator.clipboard.writeText(text);
+    // Toast or alert could be added
+    console.log(`${label} copied!`);
+  };
 
   return (
     <main>
@@ -107,255 +36,139 @@ const Contact = () => {
             className="text-center"
           >
             <span className="text-accent font-semibold tracking-wider uppercase text-sm">
-              Restez en Contact
+              Contactez-nous directement
             </span>
             <h1 className="text-5xl md:text-7xl font-bold text-white mt-4 mb-6">
-              Contactez-Nous
+              Nos Coordonnées
             </h1>
             <p className="text-white/80 text-xl max-w-2xl mx-auto">
-              Nous sommes là pour répondre à toutes vos questions
+              Appelez-nous, envoyez-nous un WhatsApp ou visitez-nous
             </p>
           </motion.div>
         </div>
       </section>
 
-      <section className="py-24 bg-white">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* CTA Buttons - Better than form */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
+              className="space-y-6"
             >
-              <div className="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-gray-100">
-                <h2 className="text-3xl font-bold text-primary mb-2">
-                  Envoyez-nous un message
+              <div className="bg-gradient-to-r from-accent to-red-600 rounded-3xl p-10 text-white shadow-2xl">
+                <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+                  <Phone className="w-8 h-8" />
+                  Appelez-nous dès maintenant
                 </h2>
-                <p className="text-gray-500 mb-8">
-                  Remplissez le formulaire ci-dessous
-                </p>
-
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Nom complet *
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none"
-                        placeholder="Votre nom"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Téléphone
-                      </label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none"
-                        placeholder="+213 XXX XXX XXX"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none"
-                      placeholder="votre@email.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Sujet
-                    </label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none"
-                      placeholder="Sujet de votre message"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      name="message"
-                      required
-                      rows={5}
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none resize-none"
-                      placeholder="Décrivez votre demande..."
-                    />
-                  </div>
-
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all flex items-center justify-center gap-2 ${
-                      isSubmitting
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-accent hover:bg-red-700 shadow-lg hover:shadow-xl'
-                    }`}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
-                        <span>Envoi en cours...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5" />
-                        <span>Envoyer le message</span>
-                      </>
-                    )}
-                  </motion.button>
-
-                  {submitStatus === 'success' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="p-4 bg-green-100 text-green-700 rounded-xl text-center"
-                    >
-                      ✓ Message envoyé avec succès !
-                    </motion.div>
-                  )}
-                  {submitStatus === 'error' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="p-4 bg-red-100 text-red-700 rounded-xl text-center"
-                    >
-                      ✗ Erreur lors de l'envoi. Veuillez réessayer ou nous contacter par email.
-                    </motion.div>
-                  )}
-                </form>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <div className="grid gap-6">
-                {contactInfo.map((info, index) => (
-                  info.link ? (
+                <div className="space-y-4">
+                  {phones.map((phone, index) => (
                     <motion.a
-                      key={info.title}
-                      href={info.link}
-                      target={info.link && info.link.startsWith('http') ? '_blank' : undefined}
-                      rel={info.link && info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      whileHover={{ x: 10 }}
-                      className="flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all group"
+                      key={index}
+                      href={`tel:${phone.replace(/\s/g, '')}`}
+                      whileHover={{ scale: 1.05 }}
+                      className="block w-full p-6 bg-white/10 backdrop-blur-sm rounded-2xl text-2xl font-bold text-center hover:bg-white/20 transition-all"
                     >
-                      <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent transition-colors">
-                        <info.icon className="w-7 h-7 text-primary group-hover:text-white transition-colors" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-primary mb-1">{info.title}</h3>
-                        <p className="text-gray-500">{info.content}</p>
-                      </div>
+                      {phone}
                     </motion.a>
-                  ) : (
-                    <motion.div
-                      key={info.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="flex items-start gap-4 p-6 bg-white rounded-2xl shadow-lg"
-                    >
-                      <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                        <info.icon className="w-7 h-7 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-primary mb-1">{info.title}</h3>
-                        <p className="text-gray-500">{info.content}</p>
-                      </div>
-                    </motion.div>
-                  )
-                ))}
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <motion.a
+                  href={`https://wa.me/213661900400`}
+                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-4 p-6 bg-green-500 hover:bg-green-600 text-white rounded-2xl shadow-lg"
+                >
+                  <FaWhatsapp className="w-8 h-8" />
+                  WhatsApp Commercial
+                </motion.a>
+
+                <motion.a
+                  href={`mailto:${companyInfo.email}`}
+                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-4 p-6 bg-primary hover:bg-primary-dark text-white rounded-2xl shadow-lg"
+                >
+                  <Mail className="w-8 h-8" />
+                  Envoyer Email
+                </motion.a>
               </div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="bg-primary rounded-3xl p-8 text-white"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                className="text-center p-8 bg-gray-50 rounded-3xl"
               >
-                <h3 className="text-xl font-bold mb-6">Suivez-nous</h3>
-                <div className="flex gap-4">
-                  {socialLinks.map((social) => (
+                <h3 className="text-2xl font-bold text-primary mb-2">Horaires</h3>
+                <p className="text-xl">Lun - Sam: 8h00 - 17h00</p>
+              </motion.div>
+            </motion.div>
+
+            {/* Contact Info Cards */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="space-y-8"
+            >
+              <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all">
+                <h3 className="text-2xl font-bold text-primary mb-4 flex items-center gap-3">
+                  <MapPin className="w-7 h-7" />
+                  Notre Adresse
+                </h3>
+                <p className="text-gray-600 mb-4">{companyInfo.address}</p>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  onClick={() => copyToClipboard(companyInfo.address, 'Address')}
+                  className="flex items-center gap-2 px-6 py-3 bg-accent text-white rounded-xl hover:bg-red-600 transition-colors"
+                >
+                  <Navigation2 className="w-5 h-5" />
+                  Ouvrir Google Maps
+                </motion.button>
+              </div>
+
+              <div className="bg-primary rounded-3xl p-8 text-white shadow-xl">
+                <h3 className="text-2xl font-bold mb-6">Suivez-nous sur les réseaux</h3>
+                <div className="flex flex-wrap gap-4">
+                  {socialLinks.map((social, index) => (
                     <motion.a
                       key={social.name}
                       href={social.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
                       whileHover={{ scale: 1.1, y: -5 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center hover:bg-accent transition-colors"
+                      className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center hover:bg-white/30 transition-all"
                     >
-                      <social.icon className="w-6 h-6" />
+                      <social.icon className="w-8 h-8" />
                     </motion.a>
                   ))}
                 </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-                viewport={{ once: true }}
-                className="h-64 rounded-3xl overflow-hidden shadow-xl"
-              >
-                <iframe
-                  src={companyInfo.mapEmbed}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="SARL PRO Location"
-                />
-              </motion.div>
+              </div>
             </motion.div>
           </div>
+
+          {/* Large Map */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="mt-24 p-4 md:p-8 bg-gradient-to-r from-gray-50 to-white rounded-3xl shadow-xl"
+          >
+            <iframe
+              src={companyInfo.mapEmbed}
+              width="100%"
+              height="500"
+              style={{ border: 0, borderRadius: '1.5rem' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="SARL PRO Location"
+              className="w-full h-[500px] rounded-3xl"
+            />
+          </motion.div>
         </div>
       </section>
     </main>
