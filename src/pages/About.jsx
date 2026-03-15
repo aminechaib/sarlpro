@@ -4,10 +4,10 @@ import { companyInfo } from '../data/content'
 
 const About = () => {
   const stats = [
-    { icon: Clock, number: "50+", label: "Years Experience", color: "bg-blue-500" },
-    { icon: Users, number: "10K+", label: "Happy Clients", color: "bg-green-500" },
-    { icon: Award, number: "1000+", label: "Products", color: "bg-purple-500" },
-    { icon: Truck, number: "24/7", label: "Support", color: "bg-orange-500" }
+{ icon: Clock, number: "50+", label: "Années d'expérience", color: "bg-blue-500" },
+{ icon: Users, number: "10K+", label: "Clients satisfaits", color: "bg-green-500" },
+{ icon: Award, number: "1000+", label: "Produits", color: "bg-purple-500" },
+{ icon: Truck, number: "24/7", label: "Support", color: "bg-orange-500" }
   ]
 
   return (
